@@ -1,0 +1,169 @@
+<h1>angular-chart.js</h1>
+
+<p><a href="http://badge.fury.io/bo/angular-chart.js"><img src="https://badge.fury.io/bo/angular-chart.js.svg" alt="Bower version" /></a>
+<a href="http://badge.fury.io/js/angular-chart.js"><img src="https://badge.fury.io/js/angular-chart.js.svg" alt="npm version" /></a>
+<a href="https://travis-ci.org/jtblin/angular-chart.js"><img src="https://travis-ci.org/jtblin/angular-chart.js.png" alt="Build Status" /></a>
+<a href="https://codeclimate.com/github/jtblin/angular-chart.js"><img src="https://codeclimate.com/github/jtblin/angular-chart.js/badges/gpa.svg" alt="Code Climate" /></a></p>
+
+<p>Beautiful, reactive, responsive charts for Angular.JS using <a href="http://www.chartjs.org/">Chart.js</a>. </p>
+
+<p><a href="http://jtblin.github.io/angular-chart.js/">Demo</a></p>
+
+<h1>Installation</h1>
+
+<pre><code>bower install angular-chart.js --save
+</code></pre>
+
+<p>or copy the files from <code>dist/</code>. Then add the sources to your code (adjust paths as needed) after 
+adding the dependencies for Angular and Chart.js first:</p>
+
+<p><code>html
+&lt;script src="../bower_components/angular/angular.min.js"&gt;&lt;/script&gt;
+&lt;script src="/bower_components/Chart.js/Chart.min.js"&gt;&lt;/script&gt;
+&lt;script src="/bower_components/angular-chart.js/dist/angular-chart.js"&gt;&lt;/script&gt;
+</code></p>
+
+<h1>Utilisation</h1>
+
+<p>There are 6 types of charts so 6 directives: <code>chart-line</code>, <code>chart-bar</code>, <code>chart-radar</code>, <code>chart-pie</code>, 
+<code>chart-polar-area</code>, <code>chart-doughnut</code>.</p>
+
+<p>They all use mostly the same API:</p>
+
+<ul>
+  <li><code>data</code>: series data</li>
+  <li><code>labels</code>: x axis labels (line, bar, radar) or series labels (pie, doughnut, polar area)</li>
+  <li><code>options</code>: chart options (as from <a href="http://www.chartjs.org/docs/">Chart.js documentation</a>)</li>
+  <li><code>series</code>: (default: <code>[]</code>): series labels (line, bar, radar)</li>
+  <li><code>colours</code>: data colours (will use default colours if not specified)</li>
+  <li><code>getColour</code>: function that returns a colour in case there are not enough (will use random colours if not specified)</li>
+  <li><code>click</code>: onclick event handler</li>
+  <li><code>hover</code>: onmousemove event handler</li>
+  <li><code>legend</code>: (default: <code>false</code>): show legend below the chart</li>
+</ul>
+
+<p>There is another directive <code>chart-base</code> that takes an extra attribute <code>chart-type</code> to define the type
+dynamically, see <a href="http://jtblin.github.io/angular-chart.js/examples/stacked-bars.html">stacked bar example</a>.</p>
+
+<h2>Browser compatibility</h2>
+
+<p>For IE8 and older browsers, you will need 
+to include <a href="https://code.google.com/p/explorercanvas/wiki/Instructions">excanvas</a>. 
+You will also need <a href="https://github.com/es-shims/es5-shim">shims</a> for ES5 functions.</p>
+
+<p>```html</p>
+<head>
+<!--[if lt IE 9]><script src="excanvas.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="es5-shim.js"></script><![endif]-->
+</head>
+<p>```</p>
+
+<h1>Example</h1>
+
+<h2>Markup</h2>
+
+<p><code>html
+&lt;canvas id="line" class="chart chart-line" data="data" labels="labels" 
+	legend="true" series="series" click="onClick"&gt;&lt;/canvas&gt; 
+</code></p>
+
+<h2>Javascript</h2>
+
+<p>```javascript
+angular.module(“app”, [“chart.js”]).controller(“LineCtrl”, [‘$scope’, ‘$timeout’, function ($scope, $timeout) {</p>
+
+<p>$scope.labels = [“January”, “February”, “March”, “April”, “May”, “June”, “July”];
+  $scope.series = [‘Series A’, ‘Series B’];
+  $scope.data = [
+    [65, 59, 80, 81, 56, 55, 40],
+    [28, 48, 40, 19, 86, 27, 90]
+  ];
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
+  };</p>
+
+<p>// Simulate async data update
+  $timeout(function () {
+    $scope.data = [
+      [28, 48, 40, 19, 86, 27, 90],
+      [65, 59, 80, 81, 56, 55, 40]
+    ];
+  }, 3000);
+}]);
+```</p>
+
+<h2>Reactive</h2>
+
+<p>angular-chart.js watch updates on data, series, labels, colours and options and will update, or destroy and recreate, 
+the chart on changes.</p>
+
+<h2>Events</h2>
+
+<p>angular-chart.js emits the following events on the <code>scope</code> and pass the chart as argument:</p>
+
+<ul>
+  <li><code>create</code>: when chart is created</li>
+  <li><code>update</code>: when chart is updated</li>
+</ul>
+
+<p><code>
+$scope.$on('create', function (event, chart) {
+  console.log(chart);
+});
+</code></p>
+
+<p><strong>Note</strong>: the event can be emitted multiple times for each chart as the chart can be destroyed and
+created multiple times during angular <code>watch</code> lifecycle.</p>
+
+<p>angular-chart.js listen to the scope <code>destroy</code> event and destroy the chart when it happens.</p>
+
+<h2>Colours</h2>
+
+<p>There are a set of 7 default colours. Colours can be replaced using the <code>colours</code> attribute.
+If there is more data than colours, colours are generated randomly or can be provided 
+via a function through the <code>getColour</code> attribute.</p>
+
+<p>Hex colours are converted to Chart.js colours automatically, 
+including different shades for highlight, fill, stroke, etc.</p>
+
+<h1>Issues</h1>
+
+<p><strong>Issues or feature requests for Chart.js (e.g. new chart type, new axis, etc.) need to be opened on 
+<a href="https://github.com/nnnick/Chart.js/issues">Chart.js issues tracker</a></strong></p>
+
+<p>Please check if issue exists and otherwise open issue in <a href="https://github.com/jtblin/angular-chart.js/issues">github</a>. 
+<strong>Please add a link to a plunker, jsbin, or equivalent.</strong> 
+Here is a <a href="http://jsbin.com/dufibi/3/edit?html,js,output">jsbin template</a> for convenience.</p>
+
+<h1>Contributing</h1>
+
+<p>Pull requests welcome!</p>
+
+<ol>
+  <li>Fork the repo</li>
+  <li>Make your changes</li>
+  <li>Run tests: <code>npm test</code></li>
+  <li>Submit pull request</li>
+</ol>
+
+<h2>Contributors</h2>
+
+<p>Thank you!</p>
+
+<ul>
+  <li><a href="https://twitter.com/ManuelRauber">@ManuelRauber</a></li>
+  <li><a href="https://twitter.com/vad710">@vad710</a></li>
+  <li><a href="https://twitter.com/JAAulde">@JAAulde</a></li>
+  <li><a href="https://twitter.com/offsky">@offsky</a></li>
+  <li><a href="https://twitter.com/jonathansampson">@jonathansampson</a></li>
+  <li><a href="https://twitter.com/idangozlan">@idangozlan</a></li>
+</ul>
+
+<h1>Author</h1>
+
+<p>Jerome Touffe-Blin, <a href="https://twitter.com/jtblin">@jtblin</a>, <a href="http://about.me/jtblin">About me</a></p>
+
+<h1>License</h1>
+
+<p>angular-chart.js is copyright 2015 Jerome Touffe-Blin and contributors. 
+It is licensed under the BSD license. See the include LICENSE file for details.</p>

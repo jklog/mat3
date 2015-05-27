@@ -1,0 +1,210 @@
+<h1>Angular-Wizard</h1>
+
+<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=martin%40gon%2eto&amp;lc=US&amp;item_name=Martin%20Gontovnikas&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" title="Donate once-off to this project using PayPal"><img src="http://img.shields.io/paypal/donate.png?color=yellow" alt="PayPal donate button" /></a>
+<a href="https://gratipay.com/mgonto/"><img src="http://img.shields.io/gratipay/mgonto.svg" alt="Donate on Gratipay" /></a></p>
+
+<p>Angular-wizard is a component that will make it easy for you to create wizards in your app. You can check a running example of the wizard <a href="http://mgonto.github.io/angular-wizard/">by clicking here</a></p>
+
+<h1>How do I add this to my project?</h1>
+<p>You can download this by:</p>
+
+<ul>
+  <li>Using bower and running bower install angular-wizard</li>
+  <li>Using npm and running npm install angular-wizard</li>
+  <li>Downloading it manually by getting the files from the dist folder</li>
+  <li>Using JsDelivr CDN files:</li>
+</ul>
+
+<p>````html
+<!-- Use LATEST folder to always get the latest version-->
+<script type="text/javascript" src="http://cdn.jsdelivr.net/angular.wizard/latest/angular-wizard.js"></script>
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/angular.wizard/latest/angular-wizard.css" /></p>
+
+<!-- Or use TAG number for specific version -->
+<script type="text/javascript" src="http://cdn.jsdelivr.net/angular-wizard/0.1.0/angular.wizard.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/angular.wizard/0.1.0/angular-wizard.css" />
+
+<p>````</p>
+
+<p>The dist folder contains the following files:</p>
+
+<ul>
+  <li>JS files needed for the directives and services</li>
+  <li>CSS files with default styles for the directive</li>
+  <li>LESS file with styles for the directive. If you have less in your project, I recommend using the less instead of the CSS since it has variables to configure Wizard colors.</li>
+</ul>
+
+<h1>Dependencies</h1>
+<p>Angular-wizard depends on Angular and Lodash (or Underscore).</p>
+
+<h1>Starter Guide</h1>
+
+<h2>First example</h2>
+
+<p>The first thing we need to do is add a dependency to angular-wizard module which is called <code>mgo-angular-wizard</code>.</p>
+
+<p>We can do this simply by doing: </p>
+
+<p><code>js
+angular.module('your-app', ['mgo-angular-wizard']);
+</code></p>
+
+<p>Now, in some HTML for a controller, you can just add a wizard as follows:</p>
+
+<p><code>html
+&lt;wizard on-finish="finishedWizard()"&gt; 
+    &lt;wz-step title="Starting"&gt;
+        &lt;h1&gt;This is the first step&lt;/h1&gt;
+        &lt;p&gt;Here you can use whatever you want. You can use other directives, binding, etc.&lt;/p&gt;
+        &lt;input type="submit" wz-next value="Continue" /&gt;
+    &lt;/wz-step&gt;
+    &lt;wz-step title="Continuing"&gt;
+        &lt;h1&gt;Continuing&lt;/h1&gt;
+        &lt;p&gt;You have continued here!&lt;/p&gt;
+        &lt;input type="submit" wz-next value="Go on" /&gt;
+    &lt;/wz-step&gt;
+    &lt;wz-step title="More steps"&gt;
+        &lt;p&gt;Even more steps!!&lt;/p&gt;
+        &lt;input type="submit" wz-next value="Finish now" /&gt;
+    &lt;/wz-step&gt;
+&lt;/wizard&gt;
+</code></p>
+
+<p>This will look like the following when you’re in the second step:</p>
+
+<p><a href="http://f.cl.ly/items/2J0X0l2e3u3Q0R0q2C1Z/Screen%20Shot%202014-01-29%20at%206.14.29%20PM.png"><img src="http://f.cl.ly/items/2J0X0l2e3u3Q0R0q2C1Z/Screen%20Shot%202014-01-29%20at%206.14.29%20PM.png" alt="Looks like" /></a></p>
+
+<p>Let’s go step by step to see how this works.</p>
+
+<p>1) You need to declare a master <code>wizard</code> directive. This wizard directive, has the following options as attributes:
+* <strong>on-finish</strong>: Here you can put a function to be called when the wizard is finished. The syntax here is very similar to <code>ng-click</code>
+* <strong>name</strong>: The name of the wizard. By default, it’s called “Default wizard”. It’s used for the <code>WizardHandler</code> which we’ll explain later.
+* <strong>edit-mode</strong>: If set to true, this will set the wizard as edit mode. Edit mode means that all steps have been completed and the user can now navigate to and modify any step. Defaults to false.
+* <strong>hide-indicators</strong>: If set to true, the indicators in the bottom of the page showing the current page and allowing navigation for the wizard will be hidden. Defaults to false.
+* <strong>current-step</strong>: You need to set here a property from your scope (similar to <code>ng-model</code>) and that property will always have the name of the current step being shown on the screen.
+* <strong>template</strong>: Path to a custom template.</p>
+
+<p>2) Inside the wizard, we can have as many steps as we want. Each step MUST have a title which is going to be used to identify it. Inside each step, we can put whatever we want. Other directives, bindings, controls, forms, etc.</p>
+
+<p>3) Inside the step, we now see a button which has a <code>wz-next</code> attribute. That means that clicking that button will send the user to the next step of wizard. Similar to <code>wz-next</code>, we have the following attributes:
+* <strong>wz-previous</strong>: Goes to the previous step
+* <strong>wz-cancel</strong>: Goes back to the first step
+* <strong>wz-finish</strong>: Finishes the wizard and calls the on-finish later on. It’s important to note that if we’re in the last step and we put <code>wz-next</code> it’ll be the same as putting <code>wz-finish</code> as the wizard will know we’re at the last screen.</p>
+
+<p>All of this attributes can receive an optional function to be called before changing the step. Something like:</p>
+
+<p><code>html
+&lt;input type="button" wz-next="setMode(mode)" value="Next" /&gt;
+</code></p>
+
+<p>In this case, the <code>setMode</code> function will be called before going to the next step.</p>
+
+<h2>Wizard Step Validation</h2>
+<p>The wzStep directive has the following options as attributes:
+* <strong>canexit</strong>: Here you can reference a function from your controller.  If this attribute is listed the funtion must return true in order for the wizard to move to the next step.  If it is ommitted no validation will be required.
+* <strong>canenter</strong>: Here you can reference a function from your controller.  If this attribute is listed the funtion must return true in order for the wizard to move into this step.  If it is ommitted no validation will be required.</p>
+
+<p><strong>Example</strong></p>
+
+<p>HTML
+<code>html
+&lt;wizard on-finish="finishedWizard()"&gt; 
+    &lt;wz-step title="Starting" canexit="exitValidation"&gt;
+        &lt;h1&gt;This is the first step&lt;/h1&gt;
+        &lt;p&gt;Here you can use whatever you want. You can use other directives, binding, etc.&lt;/p&gt;
+        &lt;input type="submit" wz-next value="Continue" /&gt;
+    &lt;/wz-step&gt;
+    &lt;wz-step title="Continuing" canenter="enterValidation"&gt;
+        &lt;h1&gt;Continuing&lt;/h1&gt;
+        &lt;p&gt;You have continued here!&lt;/p&gt;
+        &lt;input type="submit" wz-next value="Go on" /&gt;
+    &lt;/wz-step&gt;
+    &lt;wz-step title="More steps"&gt;
+        &lt;p&gt;Even more steps!!&lt;/p&gt;
+        &lt;input type="submit" wz-next value="Finish now" /&gt;
+    &lt;/wz-step&gt;
+&lt;/wizard&gt;
+</code>
+Controller
+````javascript
+$scope.enterValidation = function(){
+    return true;
+};</p>
+
+<p>$scope.exitValidation = function(){
+    return true;
+};
+````
+If a step requires information from a previous step to populate itself you can access this information through the <code>context</code> object.  The context object is automatically passed in as an argument into your canexit and canenter methods.  You can access the context objext from your controller via: <code>WizardHandler.wizard().context</code></p>
+
+<h2>Manipulating the wizard from a service</h2>
+<p>There are some times where we actually want to manipulate the wizard from the controller instead of from the HTML.</p>
+
+<p>For those cases, we can inject the <code>WizardHandler</code> to our controller.</p>
+
+<p>The main function of this service is the <code>wizard(name)</code> which will let you get the wizard to manipulate it. If you have just one wizard in the screen and you didn’t set a name to it, you can just call it as <code>wizard()</code>. Let’s see an example:</p>
+
+<p><code>html
+&lt;wz-step title="Cool step"&gt;
+    &lt;input type="submit" ng-click="changeLabelAndGoNext()" /&gt;
+&lt;/wz-step&gt;
+</code></p>
+
+<p><code>js
+// In your controller
+$scope.changeLabelAndGoNext = function() {
+    $scope.model.label = "Hola Gonto";
+    WizardHandler.wizard().next();
+}
+</code></p>
+
+<p>In this case, we’re changing a label and moving forward on the steps.
+The functions available in the <code>wizard()</code> are:
+* <strong>next</strong>: Goes to the next step
+* <strong>previous</strong>: Goes to the previous step
+* <strong>finish</strong>: Finishes the wizard.
+* <strong>goTo(number|title)</strong>: This goes to the indicated step. It can receive either the number of the step (starting from 0) or the title of the step to go to.
+* <strong>currentStepNumber()</strong>: This returns a Number which is the current step number you are on.</p>
+
+<h2>Navigation bar</h2>
+
+<p>The navigation bar shown below works in the following way:</p>
+
+<ul>
+  <li>Completed steps are painted as green</li>
+  <li>Current step is painted as dark grey</li>
+  <li>Future step is painted as light grey</li>
+  <li>Editing step (Modifying a step already completed in the past) is painted as red</li>
+  <li>You can click in any completed step to go back to that step. You can’t click in the current step nor in the future ones unless you’ve already completed a future step before (for example in EditMode all steps are completed by default)</li>
+</ul>
+
+<p>All of those colors are variables in the <code>angular-wizard.less</code>. You can easily change them by changing the colors in that file</p>
+
+<h1>Contributors</h1>
+
+<ul>
+  <li>@sebazelonka helped me with all of the styles in the Wizard.</li>
+  <li><a href="https://github.com/jacobscarter">@jacobscarter</a> is helping with manteinance, PRS merging and adding new features</li>
+</ul>
+
+<h1>Live sample</h1>
+
+<p>You can check out a live sample of the Wizard <a href="http://mgonto.github.io/angular-wizard/">clicking here</a></p>
+
+<h1>Releases Notes</h1>
+<p>Releases notes are together with releases in GitHub at: https://github.com/mgonto/angular-wizard/releases</p>
+
+<h1>License</h1>
+<p>The MIT License</p>
+
+<p>Copyright (c) 2013-2014 Martin Gontovnikas http://www.gon.to/</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/mgonto/angular-wizard/trend.png" alt="Bitdeli Badge" /></a></p>
+

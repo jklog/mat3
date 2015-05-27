@@ -1,0 +1,502 @@
+<h1>Angular UI Tree</h1>
+
+<p><a href="https://travis-ci.org/angular-ui-tree/angular-ui-tree"><img src="https://travis-ci.org/angular-ui-tree/angular-ui-tree.svg" alt="Build Status" /></a></p>
+
+<p>Angular UI Tree is an AngularJS UI component that can sort nested lists, provides drag &amp; drop support and doesn’t depend on jQuery. If you are a user who uses <code>angular-nestedSortable</code>, this is <a href="https://github.com/JimLiu/angular-ui-tree/wiki/Migrate-From-v1.x-to-v2.0">How to migrate From v1.x to v2.0</a>.</p>
+
+<h2>Features</h2>
+
+<ul>
+  <li>Uses the native AngularJS scope for data binding</li>
+  <li>Sorted and move items through the entire tree</li>
+  <li>Prevent elements from accepting child nodes</li>
+</ul>
+
+<h2>Supported browsers</h2>
+
+<p>The Angular UI Tree is tested with the following browsers:</p>
+
+<ul>
+  <li>Chrome (stable)</li>
+  <li>Firefox</li>
+  <li>IE 8, 9 and 10</li>
+</ul>
+
+<p>For IE8 support, make sure you do the following:</p>
+
+<ul>
+  <li>include an <a href="https://github.com/es-shims/es5-shim">ES5 shim</a></li>
+  <li>make your <a href="http://docs.angularjs.org/guide/ie">AngularJS application compatible with Internet Explorer</a></li>
+  <li>use <a href="http://jquery.com/browser-support/">jQuery 1.x</a></li>
+</ul>
+
+<h2>Demo</h2>
+<p>Watch the Tree component in action on the <a href="http://jimliu.github.io/angular-ui-tree/">demo page</a>.</p>
+
+<h2>Requirements</h2>
+
+<ul>
+  <li>Angularjs</li>
+</ul>
+
+<h2>Usage</h2>
+
+<h3>Download</h3>
+<ul>
+  <li>Using <a href="http://bower.io/">bower</a> to install it. <code>bower install angular-ui-tree</code></li>
+  <li><a href="https://github.com/JimLiu/angular-ui-tree/archive/master.zip">Download</a> from github.</li>
+</ul>
+
+<h3>Load CSS</h3>
+<p>Load the css file: <code>angular-ui-tree.min.css</code> in your application:
+<code>html
+&lt;link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css"&gt;
+</code></p>
+
+<h3>Load Script</h3>
+<p>Load the script file: <code>angular-ui-tree.js</code> or <code>angular-ui-tree.min.js</code> in your application:</p>
+
+<p><code>html
+&lt;script type="text/javascript" src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"&gt;&lt;/script&gt;
+</code></p>
+
+<h3>Code</h3>
+<p>Add the sortable module as a dependency to your application module:</p>
+
+<p><code>js
+var myAppModule = angular.module('MyApp', ['ui.tree'])
+</code></p>
+
+<p>Injecting <code>ui.tree</code>, <code>ui-tree-nodes</code>, <code>ui-tree-node</code>, <code>ui-tree-handle</code> to your html.</p>
+
+<h4>HTML View or Templates</h4>
+<p><code>html
+&lt;div ui-tree&gt;
+  &lt;ol ui-tree-nodes="" ng-model="list"&gt;
+    &lt;li ng-repeat="item in list" ui-tree-node&gt;
+      &lt;div ui-tree-handle&gt;
+        {{item.title}}
+      &lt;/div&gt;
+      &lt;ol ui-tree-nodes="" ng-model="item.items"&gt;
+        &lt;li ng-repeat="subItem in item.items" ui-tree-node&gt;
+          &lt;div ui-tree-handle&gt;
+            {{subItem.title}}
+          &lt;/div&gt;
+        &lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</code>
+<strong>Developing Notes:</strong>
+- Adding <code>ui-tree</code> to your root element of the tree.
+- Adding <code>ui-tree-nodes</code> to the elements which contain the nodes. <code>ng-model</code> is required, and it should be an array, so that the directive knows which model to bind and update.
+- Adding <code>ui-tree-node</code> to your node element, it always follows the <code>ng-repeat</code> attribute.
+- Adding <code>ui-tree-handle</code> to the element used to drag the object.
+- All <code>ui-tree</code>, <code>ui-tree-nodes</code>, <code>ng-model</code>, <code>ui-tree-node</code> are necessary. And they can be nested.
+- If you don’t add a <code>ui-tree-handle</code> for a node, the entire node can be dragged.</p>
+
+<h4>Unlimited nesting HTML View or Templates Example</h4>
+
+<p><code>html
+&lt;!-- Nested node template --&gt;
+&lt;script type="text/ng-template" id="nodes_renderer.html"&gt;
+  &lt;div ui-tree-handle&gt;
+    {{node.title}}
+  &lt;/div&gt;
+  &lt;ol ui-tree-nodes="" ng-model="node.nodes"&gt;
+    &lt;li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'"&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/script&gt;
+&lt;div ui-tree&gt;
+  &lt;ol ui-tree-nodes="" ng-model="data" id="tree-root"&gt;
+    &lt;li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</code></p>
+
+<h2>Structure of json</h2>
+<p>```json
+  data = [
+    {
+      “id”: 1,
+      “title”: “No childs, and I have an empty array in my items property so I’m nestable”,
+      “items”: []
+    },
+    {
+      “id”: 2,
+      “title”: “With childs”,
+      “items”: [
+        {
+          “id”: 3,
+          “title”: “No childs, and I have DON’T have an empty array in my items property so I’m NOT nestable”
+        }
+      ]
+    },</p>
+
+<p>]
+```</p>
+
+<h2>Structure of angular-ui-tree</h2>
+
+<pre><code>ui-tree                             --&gt; Root of tree
+  ui-tree-nodes                     --&gt; Container of nodes
+    ui-tree-node                    --&gt; One of the node of a tree
+      ui-tree-handle                --&gt; Handle
+      ui-tree-nodes                 --&gt; Container of child-nodes
+        ui-tree-node                --&gt; Child node
+          ui-tree-handle            --&gt; Handle
+        ui-tree-node                --&gt; Child node
+    ui-tree-node                    --&gt; Another node
+      ui-tree-handle                --&gt; Handle
+</code></pre>
+
+<h2>Migrate From v1.x to v2.0</h2>
+<p><a href="https://github.com/JimLiu/angular-ui-tree/wiki/Migrate-From-v1.x-to-v2.0">Migrate From v1.x to v2.0</a></p>
+
+<h2>API</h2>
+
+<h3>ui-tree</h3>
+<p><code>ui-tree</code> is the root scope for a tree</p>
+
+<h4>Attributes</h4>
+<p>##### ui-tree-dir
+Set the direction of the tree for nesting
+- <code>ltr</code> (default)
+- <code>rtl</code>
+note: The default value is configured at the ui.tree module, in the treeConfig constants</p>
+
+<h5>data-drag-enabled</h5>
+<p>Turn on dragging and dropping of nodes.
+- <code>true</code> (default): allow drag and drop
+- <code>false</code>: turn off drag and drop</p>
+
+<h5>data-max-depth</h5>
+<p>Number of levels a nodes can be nested (default 0). 0 means no limit.
+<strong>Note</strong>
+If you write your own <a href="#accept">$callbacks.accept</a> method, you have to check <code>data-max-depth</code> by yourself.</p>
+
+<h5>data-drag-delay</h5>
+<p>Number of milliseconds a click must be held to start a drag. (default 0)</p>
+
+<h5>data-empty-place-holder-enabled</h5>
+<p>If a tree is empty, there will be an empty place hoder which is used to drop node from other trees by default.
+- <code>true</code> (default): display an empty place holder if the tree is empty
+- <code>false</code>: do not display an empty place hoder</p>
+
+<h5>Example</h5>
+<ul>
+  <li>turn on/off drag and drop.</li>
+  <li>Limit depth to 5</li>
+  <li>500 milliseconds delay
+```html
+&lt;div ui-tree data-drag-enabled="tree.enabled" data-max-depth="5" data-drag-delay="500"&gt;</li>
+</ul>
+
+<p>&lt;/div&gt;
+```</p>
+
+<h4>Methods of scope</h4>
+<p>##### collapseAll()
+Collapse all it’s child nodes.</p>
+
+<h5>expandAll()</h5>
+<p>Expand all it’s child nodes.</p>
+
+<h5>$callbacks (type: Object)</h5>
+<p><code>$callbacks</code> is a very important property for <code>angular-ui-tree</code>. When some special events trigger, the functions in <code>$callbacks</code> are called. The callbacks can be passed through the directive.
+Example:
+<code>js
+myAppModule.controller('MyController', function($scope) {
+  $scope.treeOptions = {
+    accept: function(sourceNodeScope, destNodesScope, destIndex) {
+      return true;
+    },
+  };
+});
+</code>
+<code>html
+&lt;div ui-tree callbacks="treeOptions"&gt;
+  &lt;ol ui-tree-nodes ng-model="nodes"&gt;
+    &lt;li ng-repeat="node in nodes" ui-tree-node&gt;{{node.title}}&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</code></p>
+
+<h4>Methods in $callbacks</h4>
+<p>##### <a name="accept"></a>accept(sourceNodeScope, destNodesScope, destIndex)
+Check if the current dragging node can be dropped in the <code>ui-tree-nodes</code>.</p>
+
+<p><strong>Parameters:</strong>
+- <code>sourceNodeScope</code>: The scope of source node which is dragging.
+- <code>destNodesScope</code>: The scope of <code>ui-tree-nodes</code> which you want to drop in.
+- <code>destIndex</code>: The position you want to drop in.</p>
+
+<p><strong>Return</strong>
+If the nodes accept the current dragging node.
+- <code>true</code> Allow it to drop.
+- <code>false</code> Not allow.</p>
+
+<h5><a name="beforeDrag"></a>beforeDrag(sourceNodeScope)</h5>
+<p>Check if the current selected node can be dragged.</p>
+
+<p><strong>Parameters:</strong>
+- <code>sourceNodeScope</code>: The scope of source node which is selected.</p>
+
+<p><strong>Return</strong>
+If current node is draggable.
+- <code>true</code> Allow it to drag.
+- <code>false</code> Not allow.</p>
+
+<h5><a name="dropped"></a>dropped(event)</h5>
+<p>If a node moves it’s position after dropped, the <code>nodeDropped</code> callback will be called.</p>
+
+<p><strong>Parameters:</strong>
+- <a name="eventParam"></a><code>event</code>: Event arguments, it’s an object.
+  * <code>source</code>: Source object
+    + <code>nodeScope</code>: The scope of source node which was dragged.
+    + <code>nodesScope</code>: The scope of the parent nodes of source node  when it began to drag.
+    + <code>index</code>: The position when it began to drag.
+  * <code>dest</code>: Destination object
+    + <code>nodesScope</code>: The scope of <code>ui-tree-nodes</code> which you just dropped in.
+    + <code>index</code>: The position you dropped in.
+  * <code>elements</code>: The dragging relative elements.
+    + <code>placeholder</code>: The placeholder element.
+    + <code>dragging</code>: The dragging element.
+  * <code>pos</code>: Position object.</p>
+
+<h5><a name="dragStart"></a>dragStart(event)</h5>
+<p>The <code>dragStart</code> function is called when the user starts to drag the node.
+<strong>Parameters:</strong>
+Same as <a href="#eventParam">Parameters</a> of dropped.</p>
+
+<h5>dragMove(event)</h5>
+<p>The <code>dragMove</code> function is called when the user moves the node.</p>
+
+<p><strong>Parameters:</strong>
+Same as <a href="#eventParam">Parameters</a> of dropped.</p>
+
+<h5>dragStop(event)</h5>
+<p>The <code>dragStop</code> function is called when the user stop dragging the node.</p>
+
+<p><strong>Parameters:</strong>
+Same as <a href="#eventParam">Parameters</a> of dropped.</p>
+
+<h5>beforeDrop(event)</h5>
+<p>The <code>beforeDrop</code> function is called before the dragging node is dropped.</p>
+
+<p><strong>Parameters:</strong>
+Same as <a href="#eventParam">Parameters</a> of dropped.</p>
+
+<h3>ui-tree-nodes</h3>
+<p><code>ui-tree-nodes</code> is the container of nodes. Every <code>ui-tree-node</code> should have a <code>ui-tree-nodes</code> as it’s container, a <code>ui-tree-nodes</code> can have multiple child nodes.</p>
+
+<h4>Attributes</h4>
+<p>##### data-nodrop<a name="nodes_attrs_nodrop"></a>
+Turn off drop of nodes.
+##### data-max-depth<a name="nodes_attrs_maxDepth"></a>
+Number of levels a nodes can be nested (default 0). 0 means no limit. It can override the <code>data-max-depth</code> in <code>ui-tree</code>.
+<strong>Note</strong>
+If you write your own <a href="#accept">$callbacks.accept</a> method, you have to check <code>data-nodrop</code> and <code>data-max-depth</code> by yourself.</p>
+
+<p>Example: turn off drop.
+<code>html
+&lt;ol ui-tree-nodes ng-model="nodes" data-nodrop&gt;
+  &lt;li ng-repeat="node in nodes" ui-tree-node&gt;{{node.title}}&lt;/li&gt;
+&lt;/ol&gt;
+</code></p>
+
+<h4>Properties of scope</h4>
+<p>##### $element (type: AngularElement)
+The html element which bind with the <code>ui-tree-nodes</code> scope.</p>
+
+<h5>$modelValue (type: Object)</h5>
+<p>The data which bind with the scope.</p>
+
+<h5>$nodes (type: Array)</h5>
+<p>All it’s child nodes. The type of child node is scope of <code>ui-tree-node</code>.</p>
+
+<h5>$nodeScope (type: Scope of ui-tree-node)</h5>
+<p>The scope of node which current <code>ui-tree-nodes</code> belongs to.
+For example:</p>
+
+<pre><code>ui-tree-nodes                       --&gt; nodes 1
+  ui-tree-node                      --&gt; node 1.1
+    ui-tree-nodes                   --&gt; nodes 1.1
+      ui-tree-node                  --&gt; node 1.1.1
+      ui-tree-node                  --&gt; node 1.1.2
+  ui-tree-node                      --&gt; node 1.2
+</code></pre>
+
+<p>The property <code>$nodeScope of</code> <code>nodes 1.1</code> is <code>node 1.1</code>. The property <code>$nodes</code> of <code>nodes 1.1</code> is [<code>node 1.1.1</code>, <code>node 1.1.2</code>]</p>
+
+<h5>maxDepth</h5>
+<p>Number of levels a node can be nested. It bases on the attribute <a href="#nodes_attrs_maxDepth">data-max-depth</a>.</p>
+
+<h5>nodrop</h5>
+<p>Turn off drop on nodes. It bases on the attribute <a href="#nodes_attrs_nodrop">data-nodrag</a>.</p>
+
+<h4>Methods of scope</h4>
+<p>##### depth()
+Get the depth.</p>
+
+<h5>outOfDepth(sourceNode)</h5>
+<p>Check if depth limit has reached</p>
+
+<h5>isParent(nodeScope)</h5>
+<p>Check if the nodes is the parent of the target node.
+<strong>Parameters:</strong>
+- <code>nodeScope</code>: The target node which is used to check with the current nodes.</p>
+
+<h3>ui-tree-node</h3>
+<p>A node of a tree. Every <code>ui-tree-node</code> should have a <code>ui-tree-nodes</code> as it’s container.</p>
+
+<h4>Attributes</h4>
+<p>##### data-nodrag
+Turn off drag of node.
+Example: turn off drag.
+<code>html
+&lt;ol ui-tree-nodes ng-model="nodes"&gt;
+  &lt;li ng-repeat="node in nodes" ui-tree-node data-nodrag&gt;{{node.title}}&lt;/li&gt;
+&lt;/ol&gt;
+</code></p>
+
+<h5>data-collapsed</h5>
+<p>Collapse the node.</p>
+
+<h4>Properties of scope</h4>
+<p>##### $element (type: AngularElement)
+The html element which bind with the <code>ui-tree-nodes</code> scope.</p>
+
+<h5>$modelValue (type: Object)</h5>
+<p>The data which bind with the scope.</p>
+
+<h5>collapsed (type: Bool)</h5>
+<p>If the node is collapsed</p>
+
+<ul>
+  <li><code>true</code>: Current node is collapsed;</li>
+  <li><code>false</code>: Current node is expanded.</li>
+</ul>
+
+<h5>$parentNodeScope (type: Scope of ui-tree-node)</h5>
+<p>The scope of parent node.</p>
+
+<h5>$childNodesScope (type: Scope of ui-tree-nodes)</h5>
+<p>The scope of it’s <code>ui-tree-nodes</code>.</p>
+
+<h5>$parentNodesScope (type: Scope of ui-tree-nodes)</h5>
+<p>The scope of it’s parent <code>ui-tree-nodes</code>.</p>
+
+<p>For example:</p>
+
+<pre><code>ui-tree-nodes                       --&gt; nodes 1
+  ui-tree-node                      --&gt; node 1.1
+    ui-tree-nodes                   --&gt; nodes 1.1
+      ui-tree-node                  --&gt; node 1.1.1
+      ui-tree-node                  --&gt; node 1.1.2
+  ui-tree-node                      --&gt; node 1.2
+</code></pre>
+
+<ul>
+  <li><code>node 1.1.1</code>.<code>$parentNodeScope</code> is <code>node 1.1</code>.</li>
+  <li><code>node 1.1</code>.<code>$childNodesScope</code> is <code>nodes 1.1</code>.</li>
+  <li><code>node 1.1</code>.<code>$parentNodesScope</code> is <code>nodes 1</code>.</li>
+</ul>
+
+<h4>Methods of scope</h4>
+<p>##### collapse()
+Collapse current node.</p>
+
+<h5>expand()</h5>
+<p>Expand current node.</p>
+
+<h5>toggle()</h5>
+<p>Toggle current node.</p>
+
+<h5>remove()</h5>
+<p>Remove current node.</p>
+
+<h5>depth()</h5>
+<p>Get the depth of the node.</p>
+
+<h5>maxSubDepth()</h5>
+<p>Get the max depth of all the child nodes. If there is no child nodes, return 0.</p>
+
+<h5>isSibling(targetNodeScope)</h5>
+<p>Check if the current node is sibling with the target node.
+<strong>Parameters:</strong>
+- <code>targetNodeScope</code>: The target node which is used to check with the current node.</p>
+
+<h5>isChild(targetNodeScope)</h5>
+<p>Check if the current node is a child of the target node.
+<strong>Parameters:</strong>
+- <code>targetNodeScope</code>: The target node which is used to check with the current node.</p>
+
+<h3>ui-tree-handle</h3>
+<p>Use the <code>ui-tree-handle</code> to specify an element used to drag the object. If you don’t add a <code>ui-tree-handle</code> for a node, the entire node can be dragged.</p>
+
+<h2>NgModules Link</h2>
+
+<p><a href="http://ngmodules.org/modules/angular-ui-tree">Give us a like on ngmodules</a></p>
+
+<h2>Development environment setup</h2>
+<p>#### Prerequisites</p>
+
+<ul>
+  <li><a href="https://npmjs.org/">Node Package Manager</a> (NPM)</li>
+  <li><a href="http://git-scm.com/">Git</a></li>
+</ul>
+
+<h4>Dependencies</h4>
+
+<ul>
+  <li><a href="http://gulpjs.com/">Gulp</a> (task automation)</li>
+  <li><a href="http://bower.io/">Bower</a> (package management)</li>
+</ul>
+
+<h4>Installation</h4>
+<p>Run the commands below in the project root directory.</p>
+
+<h5>1. Install Gulp and Bower</h5>
+
+<pre><code>$ sudo npm install -g gulp bower
+</code></pre>
+
+<h5>2. Install project dependencies</h5>
+
+<pre><code>$ npm install
+$ bower install
+</code></pre>
+
+<h2>Useful commands</h2>
+
+<h4>Running a Local Development Web Server</h4>
+<p>To debug code and run end-to-end tests, it is often useful to have a local HTTP server. For this purpose, we have made available a local web server based on Node.js.</p>
+
+<p>To start the web server, run:</p>
+
+<pre><code>$ gulp serve
+</code></pre>
+
+<p>To access the local server, enter the following URL into your web browser:</p>
+
+<pre><code>http://localhost:9000
+</code></pre>
+
+<p>By default, it serves the contents of the <code>examples</code> directory.</p>
+
+<h4>Building angular-ui-tree</h4>
+<p>To build angular-ui-tree, you use the following command.</p>
+
+<pre><code>$ gulp build
+</code></pre>
+
+<p>This will generate non-minified and minified JavaScript files in the <code>dist</code> directory.</p>
+
+<h4>Run tests</h4>
+<p>You can run the unit test using a separate task.</p>
+
+<pre><code>$ gulp test
+</code></pre>

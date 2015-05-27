@@ -1,0 +1,158 @@
+<h1>angular-loading-bar</h1>
+
+<p>The idea is simple: Add a loading bar / progress bar whenever an XHR request goes out in angular.  Multiple requests within the same time period get bundled together such that each response increments the progress bar by the appropriate amount.</p>
+
+<p>This is mostly cool because you simply include it in your app, and it works.  There’s no complicated setup, and no need to maintain the state of the loading bar; it’s all handled automatically by the interceptor.</p>
+
+<p><strong>Requirements:</strong> AngularJS 1.2+</p>
+
+<p><strong>File Size:</strong> 2.4Kb minified, 0.5Kb gzipped</p>
+
+<h2>Usage:</h2>
+
+<ol>
+  <li>
+    <p>include the loading bar as a dependency for your app.  If you want animations, include <code>ngAnimate</code> as well. <em>note: ngAnimate is optional</em></p>
+
+    <p><code>js
+ angular.module('myApp', ['angular-loading-bar', 'ngAnimate'])
+</code></p>
+  </li>
+  <li>include the supplied CSS file (or create your own).</li>
+  <li>That’s it – you’re done!</li>
+</ol>
+
+<h4>via bower:</h4>
+<p><code>
+$ bower install angular-loading-bar
+</code>
+#### via npm:
+<code>
+$ npm install angular-loading-bar
+</code></p>
+
+<h2>Why I created this</h2>
+<p>There are a couple projects similar to this out there, but none were ideal for me.  All implementations I’ve seen require that you maintain state on behalf of the loading bar.  In other words, you’re setting the value of the loading/progress bar manually from potentially many different locations.  This becomes complicated when you have a very large application with several services all making independant XHR requests. It becomes even more complicated if you want these services to be loosly coupled.</p>
+
+<p>Additionally, Angular was created as a highly testable framework, so it pains me to see Angular modules without tests.  That is not the case here as this loading bar ships with 100% code coverage.</p>
+
+<p><strong>Goals for this project:</strong></p>
+
+<ol>
+  <li>Make it automatic</li>
+  <li>Unit tests, 100% coverage</li>
+  <li>Must work well with ngAnimate</li>
+  <li>Must be styled via external CSS (not inline)</li>
+  <li>No jQuery dependencies</li>
+</ol>
+
+<h2>Configuration</h2>
+
+<h4>Turn the spinner on or off:</h4>
+<p>The insertion of the spinner can be controlled through configuration.  It’s on by default, but if you’d like to turn it off, simply configure the service:</p>
+
+<p><code>js
+angular.module('myApp', ['angular-loading-bar'])
+  .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+  }])
+</code></p>
+
+<h4>Turn the loading bar on or off:</h4>
+<p>Like the spinner configuration above, the loading bar can also be turned off for cases where you only want the spinner:</p>
+
+<p><code>js
+angular.module('myApp', ['angular-loading-bar'])
+  .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeBar = false;
+  }])
+</code></p>
+
+<h4>Latency Threshold</h4>
+<p>By default, the loading bar will only display after it has been waiting for a response for over 100ms.  This helps keep things feeling snappy, and avoids the annoyingness of showing a loading bar every few seconds on really chatty applications.  This threshold is totally configurable:</p>
+
+<p><code>js
+angular.module('myApp', ['angular-loading-bar'])
+  .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.latencyThreshold = 500;
+  }])
+</code></p>
+
+<h4>Ignoring particular XHR requests:</h4>
+<p>The loading bar can also be forced to ignore certain requests, for example, when long-polling or periodically sending debugging information back to the server.</p>
+
+<p>```js
+// ignore particular $http requests:
+$http.get(‘/status’, {
+  ignoreLoadingBar: true
+});</p>
+
+<p>```</p>
+
+<p>```js
+// ignore particular $resource requests:
+.factory(‘Restaurant’, function($resource) {
+  return $resource(‘/api/restaurant/:id’, {id: ‘@id’}, {
+    query: {
+      method: ‘GET’,
+      isArray: true,
+      ignoreLoadingBar: true
+    }
+  });
+});</p>
+
+<p>```</p>
+
+<h2>How it works:</h2>
+<p>This library is split into two modules, an $http <code>interceptor</code>, and a <code>service</code>:</p>
+
+<p><strong>Interceptor</strong><br />
+The interceptor simply listens for all outgoing XHR requests, and then instructs the loadingBar service to start, stop, and increment accordingly.  There is no public API for the interceptor.  It can be used stand-alone by including <code>cfp.loadingBarInterceptor</code> as a dependency for your module.</p>
+
+<p><strong>Service</strong><br />
+The service is responsible for the presentation of the loading bar.  It injects the loading bar into the DOM, adjusts the width whenever <code>set()</code> is called, and <code>complete()</code>s the whole show by removing the loading bar from the DOM.</p>
+
+<h2>Service API (advanced usage)</h2>
+<p>Under normal circumstances you won’t need to use this.  However, if you wish to use the loading bar without the interceptor, you can do that as well.  Simply include the loading bar service as a dependency instead of the main <code>angular-loading-bar</code> module:</p>
+
+<p><code>js
+angular.module('myApp', ['cfp.loadingBar'])
+</code></p>
+
+<p>```js</p>
+
+<p>cfpLoadingBar.start();
+// will insert the loading bar into the DOM, and display its progress at 1%.
+// It will automatically call <code>inc()</code> repeatedly to give the illusion that the page load is progressing.</p>
+
+<p>cfpLoadingBar.inc();
+// increments the loading bar by a random amount.
+// It is important to note that the auto incrementing will begin to slow down as
+// the progress increases.  This is to prevent the loading bar from appearing
+// completed (or almost complete) before the XHR request has responded. </p>
+
+<p>cfpLoadingBar.set(0.3) // Set the loading bar to 30%
+cfpLoadingBar.status() // Returns the loading bar’s progress.
+// -&gt; 0.3</p>
+
+<p>cfpLoadingBar.complete()
+// Set the loading bar’s progress to 100%, and then remove it from the DOM.</p>
+
+<p>```</p>
+
+<h2>Events</h2>
+<p>The loading bar broadcasts the following events over $rootScope allowing further customization:</p>
+
+<p><strong><code>cfpLoadingBar:loading</code></strong> triggered upon each XHR request that is not already cached</p>
+
+<p><strong><code>cfpLoadingBar:loaded</code></strong> triggered each time an XHR request recieves a response (either successful or error)</p>
+
+<p><strong><code>cfpLoadingBar:started</code></strong> triggered once upon the first XHR request.  Will trigger again if another request goes out after <code>cfpLoadingBar:completed</code> has triggered.</p>
+
+<p><strong><code>cfpLoadingBar:completed</code></strong> triggered once when the all XHR requests have returned (either successfully or not)</p>
+
+<h2>Credits:</h2>
+<p>Credit goes to <a href="https://github.com/rstacruz">rstacruz</a> for his excellent <a href="https://github.com/rstacruz/nprogress">nProgress</a>.</p>
+
+<h2>License:</h2>
+<p>Licensed under the MIT license</p>

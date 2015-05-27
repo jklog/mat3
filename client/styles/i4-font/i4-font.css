@@ -1,0 +1,43 @@
+/*
+  Icon Font: i4-font
+*/
+
+@font-face {
+  font-family: "i4-font";
+  src: url("./i4-font.eot");
+  src: url("./i4-font.eot?#iefix") format("embedded-opentype"),
+       url("./i4-font.woff") format("woff"),
+       url("./i4-font.ttf") format("truetype"),
+       url("./i4-font.svg#i4-font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "i4-font";
+    src: url("./i4-font.svg#i4-font") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.icon-i4circle:before,
+.icon-i4slug:before {
+  display: inline-block;
+  font-family: "i4-font";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.icon-i4circle:before { content: "\f100"; }
+.icon-i4slug:before { content: "\f101"; }

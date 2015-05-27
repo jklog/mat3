@@ -1,0 +1,134 @@
+<h1>textAngular v1.3.0</h1>
+
+<p><a href="https://travis-ci.org/fraywing/textAngular"><img src="https://travis-ci.org/fraywing/textAngular.png?branch=master" alt="Build Status" /></a> <a href="https://coveralls.io/r/fraywing/textAngular"><img src="https://coveralls.io/repos/fraywing/textAngular/badge.png" alt="Coverage Status" /></a></p>
+
+<p>Demo is available at: http://www.textangular.com (Or editable <a href="http://plnkr.co/edit/tpl:RaBEszV5xrAZ0VRoZ7PM">Plunkr Demo</a>)</p>
+
+<h4>Upgrading From 1.2.2 or earlier</h4>
+
+<p>To upgrade from version 1.2.2 or earlier you need to follow these steps:</p>
+
+<ol>
+  <li>The styling for textAngular is now in the <code>src/textAngular.css</code> file, you will need to include this or a copy of it with your own modifications.</li>
+  <li>The rangy library is now required, you will need both the <code>rangy-core</code> and <code>rangy-saveselection</code> modules, alternatively you can include the compressed version (<code>textAngular-rangy.min.js</code>) in the dist folder</li>
+</ol>
+
+<h2>Requirements</h2>
+
+<ol>
+  <li><code>AngularJS</code> ≥ <code>1.2.x</code></li>
+  <li><code>Rangy</code> ≥ <code>1.2.x</code>, Both rangy-core and rangy-saveselection are required. (There is a minified combination of these two included in the dist folder)</li>
+  <li><code>Font-Awesome</code> ≥ <code>4.x</code> for the default icons on the toolbar</li>
+  <li><code>Bootstrap</code> ≥ <code>3.x</code> for the default styles (Can use <code>bootstrap-css-only</code> as in bower requirements)</li>
+</ol>
+
+<h3>Where to get it</h3>
+
+<p><strong>NOTE:</strong> Our <code>textAngular-sanitize.js</code> and angular.js’s <code>angular-sanitize.js</code> are the SAME file, you must include one or the other but not both. We highly recommend using <code>textAngular-sanitize.js</code> as it loosens some parts of the sanitizer that are far too strict for our uses and adds some more features we need.</p>
+
+<p><strong>Via Bower:</strong></p>
+
+<p>Run <code>bower install textAngular</code> from the command line.
+Include script tags similar to the following:
+<code>html
+&lt;link rel='stylesheet' href='/bower_components/textAngular/src/textAngular.css'&gt;
+&lt;script src='/bower_components/textAngular/dist/textAngular-rangy.min.js'&gt;&lt;/script&gt;
+&lt;script src='/bower_components/textAngular/dist/textAngular-sanitize.min.js'&gt;&lt;/script&gt;
+&lt;script src='/bower_components/textAngular/dist/textAngular.min.js'&gt;&lt;/script&gt;
+</code></p>
+
+<p><strong>Via NPM:</strong></p>
+
+<p>Run <code>npm install textangular</code> from the command line.
+Include script tags similar to the following:
+<code>html
+&lt;link rel='stylesheet' href='/node_modules/textangular/src/textAngular.css'&gt;
+&lt;script src='/node_modules/textangular/dist/textAngular-rangy.min.js'&gt;&lt;/script&gt;
+&lt;script src='/node_modules/textangular/dist/textAngular-sanitize.min.js'&gt;&lt;/script&gt;
+&lt;script src='/node_modules/textangular/dist/textAngular.min.js'&gt;&lt;/script&gt;
+</code></p>
+
+<p><strong>Via CDNJS:</strong></p>
+
+<p>Include script tags similar to the following:
+<code>html
+&lt;script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.3.0/textAngular-sanitize.min.js'&gt;&lt;/script&gt;
+&lt;script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.3.0/textAngular.min.js'&gt;&lt;/script&gt;
+</code></p>
+
+<p><strong>Via jsDelivr:</strong></p>
+
+<p>Include script tag similar to the following: (For details on how this works see: <a href="https://github.com/jsdelivr/jsdelivr#load-multiple-files-with-single-http-request">https://github.com/jsdelivr/jsdelivr#load-multiple-files-with-single-http-request</a>)
+<code>html
+&lt;script src='http://cdn.jsdelivr.net/g/angular.textangular@1.3.0(textAngular-sanitize.min.js+textAngular.min.js)'&gt;&lt;/script&gt;
+</code></p>
+
+<p><strong>Via Github</strong></p>
+
+<p>Download the code from <a href="https://github.com/fraywing/textAngular/releases/latest">https://github.com/fraywing/textAngular/releases/latest</a>, unzip the files then add script tags similar to the following:
+<code>html
+&lt;link rel='stylesheet' href='/path/to/unzipped/files/src/textAngular.min.css'&gt;
+&lt;script src='/path/to/unzipped/files/dist/textAngular-rangy.min.js'&gt;&lt;/script&gt;
+&lt;script src='/path/to/unzipped/files/dist/textAngular-sanitize.min.js'&gt;&lt;/script&gt;
+&lt;script src='/path/to/unzipped/files/dist/textAngular.min.js'&gt;&lt;/script&gt;
+</code></p>
+
+<h3>Usage</h3>
+
+<ol>
+  <li>Include (<code>rangy-core.js</code> and <code>rangy-saveselection.js</code>) or <code>textAngular-rangy.min.js</code> in your project using script tags</li>
+  <li>Include <code>textAngular-sanitize.js</code> or <code>textAngular-sanitize.min.js</code> in your project using script tags</li>
+  <li>Include (<code>textAngularSetup.js</code> and <code>textAngular.js</code>) or <code>textAngular.min.js</code> (textAngularSetup.js is included inside textAngular.min.js)</li>
+  <li>Add a dependency to <code>textAngular</code> in your app module, for example: <code>angular.module('myModule', ['textAngular'])</code>.</li>
+  <li>Create an element to hold the editor and add an <code>ng-model="htmlVariable"</code> attribute where <code>htmlVariable</code> is the scope variable that will hold the HTML entered into the editor:
+<code>html
+&lt;div text-angular ng-model="htmlVariable"&gt;&lt;/div&gt;
+</code>
+OR
+<code>html
+&lt;text-angular ng-model="htmlVariable"&gt;&lt;/text-angular&gt;
+</code>
+This acts similar to a regular AngularJS / form input if you give it a name attribute, allowing for form submission and AngularJS form validation.</li>
+</ol>
+
+<p>Have fun!</p>
+
+<p><strong>Important Note:</strong> Though textAngular supports the use of all attributes in it’s input, please note that angulars ng-bind-html <strong>WILL</strong> strip out all of your style attributes if you are using <code>angular-sanitize.js</code>.</p>
+
+<p>For Additional options see the <a href="https://github.com/fraywing/textAngular/wiki">github Wiki</a>.</p>
+
+<h3>Issues?</h3>
+
+<p>textAngular uses <code>execCommand</code> for the rich-text functionality. 
+That being said, its still a fairly experimental browser feature-set, and may not behave the same in all browsers - see http://tifftiff.de/contenteditable/compliance_test.html for a full compliance list.
+It has been tested to work on Chrome, Safari, Opera, Firefox and Internet Explorer 8+.
+If you find something, please let me know - throw me a message, or submit a issue request!</p>
+
+<h3>FAQ</h3>
+
+<ol>
+  <li><strong>Youtube Insert embeds a <code>&lt;img&gt;</code> tag and aren’t showing the video.</strong><br />
+The problems with iFrames are that they are a security risk so the sanitizer by default strips them out. Instead of changing the sanitizer to allow iFrames we use a placeholder for youtube videos which has the added advantage of allowing you to edit their size and placement in the editor. To display the youtube videos when you aren’t in the editor use the following html: <code>&lt;div ta-bind ng-model="data.htmlcontent"&gt;&lt;/div&gt;</code>. This invokes our custom renderers to convert the <code>&lt;img&gt;</code> tags back into the youtube video you expect.</li>
+  <li><strong>But I want to use Youtube outside of angular</strong><br />
+You’ll have to apply the renderers manually, see comment in issue <a href="https://github.com/fraywing/textAngular/issues/469#issuecomment-68650506">#469</a> for details.</li>
+  <li><strong>IE Is automatically converting typed links to <code>&lt;a href...&gt;</code> tags</strong><br />
+This is a known issue with IE, to prevent this run the following javascript after page load: <code>document.execCommand("AutoUrlDetect", false, false)</code>. See <a href="https://github.com/fraywing/textAngular/issues/475">#475</a> for details.</li>
+  <li><strong>Error <code>"textAngular Error: An editor with the name already exists"</code> occurs</strong><br />
+See Issue <a href="https://github.com/fraywing/textAngular/issues/240">#240</a> for specific details on why this occurs and how to resolve it.</li>
+</ol>
+
+<h2>Developer Notes</h2>
+
+<p>When checking out, you need a node.js installation, running <code>npm install</code> and then <code>bower install</code> will get you setup with everything to run the unit tests and minification.
+All changes should be done in the lib folder, running <code>grunt compile</code> to compile the app or use <code>grunt watch</code> to compile the files as you save them.
+When you are ready to create A PR check that <code>grunt</code> passes without errors and you have created tests for your feature if necessary.</p>
+
+<h2>License</h2>
+
+<p>This project is licensed under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+
+<h2>Contributers</h2>
+
+<p>Special thanks to all the contributions thus far! </p>
+
+<p>For a full list see: https://github.com/fraywing/textAngular/graphs/contributors</p>

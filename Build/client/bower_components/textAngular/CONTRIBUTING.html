@@ -1,0 +1,215 @@
+<h1>Contributing to textAngular</h1>
+
+<p>We’d love for you to contribute to our source code and to make textAngular even better than it is
+today! Here are the guidelines we’d like you to follow:</p>
+
+<ul>
+  <li><a href="#issue">Issues and Bugs</a></li>
+  <li><a href="#feature">Feature Requests</a></li>
+  <li><a href="#submit">Submission Guidelines</a></li>
+  <li><a href="#rules">Coding Rules</a></li>
+  <li><a href="#commit">Commit Message Guidelines</a></li>
+</ul>
+
+<h2><a name="issue"></a> Found an Issue?</h2>
+<p>If you find a bug in the source code or a mistake in the documentation, you can help us by
+submitting an issue to our [GitHub Repository][github]. Even better you can submit a Pull Request
+with a fix.
+## <a name="feature"></a> Want a Feature?
+You can request a new feature by submitting an issue to our [GitHub Repository][github].  If you
+would like to implement a new feature then consider what kind of change it is:</p>
+
+<ul>
+  <li><strong>Major Changes</strong> that you wish to contribute to the project should be discussed first as an issue in the repository so that we can better coordinate our efforts, prevent
+duplication of work, and help you to craft the change so that it is successfully accepted into the
+project.</li>
+  <li><strong>Small Changes</strong> can be crafted and submitted to the [GitHub Repository][github] as a Pull Request.</li>
+</ul>
+
+<h2><a name="submit"></a> Submission Guidelines</h2>
+
+<h3>Submitting an Issue</h3>
+<p>Before you submit your issue search the archive, maybe your question was already answered.</p>
+
+<p>If your issue appears to be a bug, and hasn’t been reported, open a new issue.
+Help us to maximize the effort we can spend fixing issues and adding new
+features, by not reporting duplicate issues.  Providing the following information will increase the
+chances of your issue being dealt with quickly:</p>
+
+<ul>
+  <li><strong>Overview of the issue</strong> - if an error is being thrown a non-minified stack trace helps</li>
+  <li><strong>Motivation for or Use Case</strong> - explain why this is a bug for you</li>
+  <li><strong>Angular Version(s)</strong> - is it a regression?</li>
+  <li><strong>Browsers and Operating System</strong> - is this a problem with all browsers or only IE8?</li>
+  <li><strong>Reproduce the error</strong> - provide a live example (<a href="http://plnkr.co/edit/tpl:RaBEszV5xrAZ0VRoZ7PM?p=preview">Plunkr</a>) or a unambiguous set of steps.</li>
+  <li><strong>Related issues</strong> - has a similar issue been reported before?</li>
+  <li><strong>Suggest a Fix</strong> - if you can’t fix the bug yourself, perhaps you can point to what might be
+causing the problem (line of code or commit)</li>
+</ul>
+
+<p>Here is a great example of a well defined issue: https://github.com/angular/angular.js/issues/5069</p>
+
+<p><strong>If you get help, help others. Good karma rulez!</strong></p>
+
+<h3>Submitting a Pull Request</h3>
+<p>Before you submit your pull request consider the following guidelines:</p>
+
+<ul>
+  <li>Search <a href="https://github.com/fraywing/textAngular/pulls">GitHub</a> for an open or closed Pull Request
+that relates to your submission. You don’t want to duplicate effort.</li>
+  <li>
+    <p>Make your changes in a new git branch</p>
+
+    <p><code>shell
+   git checkout -b my-fix-branch master
+  </code></p>
+  </li>
+  <li>Create your patch, <strong>including appropriate test cases</strong>.</li>
+  <li>Follow our <a href="#rules">Coding Rules</a>.</li>
+  <li>Run the full Angular test suite, as described in the [developer documentation][dev-doc],
+and ensure that all tests pass.</li>
+  <li>
+    <p>Commit your changes using a descriptive commit message that follows our
+<a href="#commit-message-format">commit message conventions</a> and passes our commit message presubmit hook
+<code>validate-commit-msg.js</code>. Adherence to the <a href="#commit-message-format">commit message conventions</a>
+is required because release notes are automatically generated from these messages.</p>
+
+    <p><code>shell
+   git commit -a
+  </code>
+Note: the optional commit <code>-a</code> command line option will automatically “add” and “rm” edited files.</p>
+  </li>
+  <li>
+    <p>Build your changes locally to ensure all the tests pass</p>
+
+    <p><code>shell
+  grunt test
+ </code></p>
+  </li>
+  <li>
+    <p>Push your branch to GitHub:</p>
+
+    <p><code>shell
+  git push origin my-fix-branch
+ </code></p>
+  </li>
+  <li>In GitHub, send a pull request to <code>angular:master</code>.</li>
+  <li>If we suggest changes then 
+    <ul>
+      <li>Make the required updates.</li>
+      <li>Re-run the Angular test suite to ensure tests are still passing.</li>
+      <li>
+        <p>Rebase your branch and force push to your GitHub repository (this will update your Pull Request):</p>
+
+        <p><code>shell
+git rebase master -i
+git push -f
+</code></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>That’s it! Thank you for your contribution!</p>
+
+<h4>After your pull request is merged</h4>
+
+<p>After your pull request is merged, you can safely delete your branch and pull the changes
+from the main (upstream) repository:</p>
+
+<ul>
+  <li>
+    <p>Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:</p>
+
+    <p><code>shell
+  git push origin --delete my-fix-branch
+ </code></p>
+  </li>
+  <li>
+    <p>Check out the master branch:</p>
+
+    <p><code>shell
+  git checkout master -f
+ </code></p>
+  </li>
+  <li>
+    <p>Delete the local branch:</p>
+
+    <p><code>shell
+  git branch -D my-fix-branch
+ </code></p>
+  </li>
+  <li>
+    <p>Update your master with the latest upstream version:</p>
+
+    <p><code>shell
+  git pull --ff upstream master
+ </code></p>
+  </li>
+</ul>
+
+<h2><a name="rules"></a> Coding Rules</h2>
+<p>To ensure consistency throughout the source code, keep these rules in mind as you are working:</p>
+
+<ul>
+  <li>All features or bug fixes <strong>must be tested</strong> by one or more [specs][unit-testing].</li>
+  <li>We <strong>love functions and closures</strong> and, whenever possible, prefer them over objects.</li>
+  <li>Where possible follow the coding style that is already in place.</li>
+  <li>Use <strong>tabs</strong> not spaces.</li>
+</ul>
+
+<h2><a name="commit"></a> Git Commit Guidelines</h2>
+
+<p>We have very precise rules over how our git commit messages can be formatted.  This leads to <strong>more
+readable messages</strong> that are easy to follow when looking through the <strong>project history</strong>.</p>
+
+<h3>Commit Message Format</h3>
+<p>Each commit message consists of a <strong>header</strong>, a <strong>body</strong> and a <strong>footer</strong>.  The header has a special
+format that includes a <strong>type</strong>, a <strong>scope</strong> and a <strong>subject</strong>:</p>
+
+<p>```</p>
+<type>(<scope>): <subject>
+<blank line="">
+<body>
+<blank line="">
+<footer>
+```
+
+Any line of the commit message cannot be longer 100 characters! This allows the message to be easier
+to read on github as well as in various git tools.
+
+### Type
+Must be one of the following:
+
+* **feat**: A new feature
+* **fix**: A bug fix
+* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing
+  semi-colons, etc)
+* **refactor**: A code change that neither fixes a bug or adds a feature
+* **perf**: A code change that improves performance
+* **test**: Adding missing tests
+* **chore**: Changes to the build process or auxiliary tools and libraries such as documentation
+  generation
+
+### Scope
+The scope could be anything specifying place of the commit change. For example `$location`,
+`$browser`, `$compile`, `$rootScope`, `ngHref`, `ngClick`, `ngView`, etc...
+
+### Subject
+The subject contains succinct description of the change:
+
+* use the imperative, present tense: "change" not "changed" nor "changes"
+* don't capitalize first letter
+* no dot (.) at the end
+
+###Body
+Just as in the **subject**, use the imperative, present tense: "change" not "changed" nor "changes"
+The body should include the motivation for the change and contrast this with previous behavior.
+
+###Footer
+The footer should contain any information about **Breaking Changes** and is also the place to
+reference GitHub issues that this commit **Closes**.
+
+
+A detailed explanation can be found in this [document][commit-message-format].
+</footer></blank></body></blank></subject></scope></type>

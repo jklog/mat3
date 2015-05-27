@@ -1,0 +1,71 @@
+<h1>Bridget makes jQuery plugins</h1>
+
+<p>Bridget makes a jQuery plugin out of a constructor :factory:</p>
+
+<p>It’s based off of the <a href="http://jqueryui.com/widget/">jQuery UI widget factory</a>. You should probably use that, since it’s very good. I use this, since it’s a bit simpler. Used for <a href="http://masonry.desandro.com">Masonry</a>, <a href="http://isotope.metafizzy.co">Isotope</a>, and  <a href="http://packery.metafizzy.co">Packery</a>.</p>
+
+<h2>Plugin constructor</h2>
+
+<p>A plugin constructor uses Prototypal pattern. It needs to have a <code>._init()</code> method used for its main logic.</p>
+
+<p><code>js
+// plugin constructor
+// accepts two argments, element and options object
+function NiceGreeter( element, options ) {
+  this.element = $( element );
+  this.options = $.extend( true, {}, this.options, options );
+  this._init();
+}
+// defaults for plugin options
+NiceGreeter.prototype.options = {
+  greeting: 'hello',
+  recipient: 'world'
+};
+// main plugin logic
+NiceGreeter.prototype._init = function() {
+  var message = this.getMessage();
+  this.element.text( message );
+};
+// getter method
+NiceGreeter.prototype.getMessage = function() {
+  return this.options.greeting + ' ' + this.options.recipient;
+};
+</code></p>
+
+<h2>Usage</h2>
+
+<p>Bridget can make this constructor work as a jQuery plugin. The <code>namespace</code> is the plugin method - <code>$elem.namespace()</code>.</p>
+
+<p>``` js
+// convert constructor to jQuery plugin
+$.bridget( ‘niceGreeter’, NiceGreeter );</p>
+
+<p>// now the constructor can be used as a jQuery plugin
+var $elem = $(‘#elem’);
+$elem.niceGreeter();
+// » h1 text will be ‘hello world’</p>
+
+<p>// set options
+$elem.niceGreeter({
+  greeting: ‘bonjour’,
+  recipient: ‘mon ami’
+});
+// » text will be ‘bonjour mon ami’</p>
+
+<p>// access constructor instance via .data()
+var myGreeter = $elem.data(‘niceGreeter’);
+```</p>
+
+<p>Getter methods can still be used. For jQuery objects with multiple elements, getter methods will return the value of the first element.</p>
+
+<h2>Package managers</h2>
+
+<p>Install with <a href="http://bower.io">Bower :bird:</a>: <code>bower install jquery-bridget</code></p>
+
+<p>Install with npm <code>npm install jquery-bridget</code></p>
+
+<p>Install with <a href="http://github.com/component/component">component</a>: <code>component install desandro/jquery-bridget</code></p>
+
+<h2>MIT license</h2>
+
+<p>Bridget is released under the <a href="http://desandro.mit-license.org">MIT license</a>.</p>

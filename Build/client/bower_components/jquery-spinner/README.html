@@ -1,0 +1,160 @@
+<h1>jQuery Spinner</h1>
+
+<p>A Number-Spinner based-on jQuery, Support Keyboard operations and continuous changing.</p>
+
+<h2>Basic usage, it’s very simple</h2>
+<p>```html
+<!-- // ref javascript file -->
+<script src="dist/jquery.spinner.min.js"></script></p>
+
+<!-- // spinner plugin DOM -->
+<div data-trigger="spinner">
+  <a href="javascript:;" data-spin="down">-</a>
+  <input type="text" value="1" data-rule="quantity" />
+  <a href="javascript:;" data-spin="up">+</a>
+</div>
+<p>```</p>
+
+<h2>Getting Started</h2>
+<p>Download the <a href="https://raw.githubusercontent.com/xixilive/jquery-spinner/bootstrap3/dist/jquery.spinner.min.js">production version</a> or the <a href="https://raw.githubusercontent.com/xixilive/jquery-spinner/bootstrap3/dist/jquery.spinner.js">development version</a>.</p>
+
+<p>In your web page:</p>
+
+<p>```html
+<script src="jquery.js"></script>
+<script src="dist/jquery.spinner.min.js"></script>
+<script>
+$("#spinner")
+  .spinner('delay', 200) //delay in ms
+  .spinner('changed', function(e, newVal, oldVal){
+    //trigger lazed, depend on delay option.
+  })
+  .spinner('changing', function(e, newVal, oldVal){
+    //trigger immediately
+  });
+</script></p>
+
+<div data-trigger="spinner" id="spinner">
+  <a href="javascript:;" data-spin="down">-</a>
+  <input type="text" value="1" data-rule="quantity" />
+  <a href="javascript:;" data-spin="up">+</a>
+</div>
+<p>```</p>
+
+<h2>Documentation</h2>
+<p>### Spinner options</p>
+
+<h4>delay</h4>
+<blockquote>
+  <p>delay to fire changed event in millisecond, default is 500.</p>
+</blockquote>
+
+<h4>changed</h4>
+<blockquote>
+  <p>changed event handler, the changed event is a lazy-mode event, default is null.</p>
+</blockquote>
+
+<h4>changing</h4>
+<blockquote>
+  <p>changing event handler, the changing event will be fired immediately, default is null.</p>
+</blockquote>
+
+<h3>Spinning Options(setup via data-api)</h3>
+<p>#### min
+&gt; the minimum value, default is null.</p>
+
+<h4>max</h4>
+<blockquote>
+  <p>the maximum value, default is null.</p>
+</blockquote>
+
+<h4>step</h4>
+<blockquote>
+  <p>the changing-value of per-step, if passed as a function, the function will be called within the spinner object scope.</p>
+</blockquote>
+
+<h4>precision</h4>
+<blockquote>
+  <p>the precision of value</p>
+</blockquote>
+
+<h3>Built-in rules</h3>
+<p><code>javascript
+  currency: {min: 0.00, max: null, step: 0.01, precision: 2},
+  quantity: {min: 1, max: 999, step: 1, precision:0},
+  percent:  {min: 1, max: 100, step: 1, precision:0},
+  month:    {min: 1, max: 12, step: 1, precision:0},
+  day:      {min: 1, max: 31, step: 1, precision:0},
+  hour:     {min: 0, max: 23, step: 1, precision:0},
+  minute:   {min: 1, max: 59, step: 1, precision:0},
+  second:   {min: 1, max: 59, step: 1, precision:0}
+</code>
+Usage:
+<code>html
+&lt;input type="text" value="1" data-rule="quantity"&gt;
+</code></p>
+
+<h2>Examples</h2>
+
+<h3>Work with twitter-bootstrap3</h3>
+
+<p>```html
+<link href="dist/bootstrap-spinner.css" rel="stylesheet" /></p>
+
+<div class="input-group spinner" data-trigger="spinner">
+  <input type="text" value="1" data-rule="quantity" />
+  <span class="input-group-addon">
+    <a href="javascript:;" class="spin-up" data-spin="up"><i class="icon-sort-up"></i></a>
+    <a href="javascript:;" class="spin-down" data-spin="down"><i class="icon-sort-down"></i></a>
+  
+
+```
+
+### Customize
+
+#### specify a field
+
+```html
+<div data-trigger="spinner">
+  <input type="text" value="0" title="this field isn't a spinning." />
+  <input type="text" value="1" data-spin="spinner" data-rule="quantity" data-max="10" />
+</div>
+```
+
+#### Use hidden field
+
+```html
+<div data-trigger="spinner" id="spinner">
+  <span id="spinner-value"></span>
+  <input type="hidden" value="1" data-spin="spinner" data-rule="quantity" data-max="10" />
+  <a href="javascript:;" data-spin="down">-</a>
+  <a href="javascript:;" data-spin="up">+</a>
+</div>
+
+<script>
+  $("#spinner")
+  .spinner('changing', function(e, newVal, oldVal){
+    #('#spinner-value').html(newVal);
+  });
+</script>
+```
+
+#### pass step options as a function
+``` javascript
+//To skip 0
+$("#spinner").spinner({
+  step: function(dir){
+    //'this' references to the spinner object
+    if((this.oldValue === 1 &amp;&amp; dir === 'down') || (this.oldValue === -1 &amp;&amp; dir === 'up')){
+      return 2;
+    }
+    return 1;
+  }
+});
+
+//or use API syntax
+$("#spinner").spinner('step', function(dir){
+  //your logic here
+});
+```
+</span></div>
