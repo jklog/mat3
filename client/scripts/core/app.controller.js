@@ -11,7 +11,7 @@
         var year = date.getFullYear();
 
         $scope.main = {
-            brand: 'i4Jobs',
+            brand: 'i4 Jobs',
             name: 'Jon',
             year: year
         };
