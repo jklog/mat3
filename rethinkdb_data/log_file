@@ -1,0 +1,70 @@
+2015-06-10T10:26:41.733158000 0.003182s notice: Recursively removing directory /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/tmp
+2015-06-10T10:26:41.733977000 0.004021s notice: Initializing directory /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data
+2015-06-10T10:26:41.734040000 0.004063s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data' did not already exist or is empty.)
+2015-06-10T10:26:41.734067000 0.004091s notice: Running rethinkdb 2.0.2 (CLANG 6.1.0 (clang-602.0.53))...
+2015-06-10T10:26:41.737087000 0.007111s notice: Running on Darwin 14.3.0 x86_64
+2015-06-10T10:26:41.737109000 0.007132s notice: Loading data from directory /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data
+2015-06-10T10:26:41.849277000 0.119301s info: Automatically using cache size of 5193 MB
+2015-06-10T10:26:41.849755000 0.119778s notice: Listening for intracluster connections on port 29015
+2015-06-10T10:26:41.850955000 0.120979s notice: Listening for client driver connections on port 28015
+2015-06-10T10:26:41.851043000 0.121067s notice: Listening for administrative HTTP connections on port 8080
+2015-06-10T10:26:41.851045000 0.121068s notice: Listening on addresses: 127.0.0.1, ::1
+2015-06-10T10:26:41.851047000 0.121071s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-06-10T10:26:41.851049000 0.121073s notice: Server ready, "jk780_na_corp_clorox_com_x92" 626d4adc-4475-411c-9ed5-7dd5badfd0e0
+2015-06-10T10:34:02.194586000 0.003184s notice: Running rethinkdb 2.0.2 (CLANG 6.1.0 (clang-602.0.53))...
+2015-06-10T10:34:02.197169000 0.005764s notice: Running on Darwin 14.3.0 x86_64
+2015-06-10T10:34:02.197206000 0.005800s notice: Loading data from directory /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data
+2015-06-10T10:34:02.231393000 0.039988s info: Automatically using cache size of 5050 MB
+2015-06-10T10:34:02.231941000 0.040536s notice: Listening for intracluster connections on port 29015
+2015-06-10T10:34:02.233206000 0.041801s notice: Listening for client driver connections on port 28015
+2015-06-10T10:34:02.233321000 0.041916s notice: Listening for administrative HTTP connections on port 8080
+2015-06-10T10:34:02.233326000 0.041921s notice: Listening on addresses: 127.0.0.1, ::1
+2015-06-10T10:34:02.233328000 0.041923s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-06-10T10:34:02.233331000 0.041925s notice: Server ready, "jk780_na_corp_clorox_com_x92" 626d4adc-4475-411c-9ed5-7dd5badfd0e0
+2015-06-10T10:50:58.932450000 0.003229s notice: Running rethinkdb 2.0.2 (CLANG 6.1.0 (clang-602.0.53))...
+2015-06-10T10:50:58.935052000 0.005829s notice: Running on Darwin 14.3.0 x86_64
+2015-06-10T10:50:58.935077000 0.005854s notice: Loading data from directory /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data
+2015-06-10T10:50:58.967296000 0.038073s info: Automatically using cache size of 4730 MB
+2015-06-10T10:50:58.968713000 0.039489s notice: Listening for intracluster connections on port 29015
+2015-06-10T10:50:58.970001000 0.040778s notice: Listening for client driver connections on port 28015
+2015-06-10T10:50:58.970068000 0.040845s notice: Listening for administrative HTTP connections on port 8080
+2015-06-10T10:50:58.971493000 0.042270s notice: Listening on addresses: 127.0.0.1, 10.1.61.16, 10.1.55.59, ::1, fe80::1%1, fe80::2a37:37ff:fe02:ccda%7, fe80::3636:3bff:fec7:7eb0%4, fe80::900b:b5ff:fe5d:827c%10
+2015-06-10T10:50:58.971500000 0.042276s notice: Server ready, "jk780_na_corp_clorox_com_x92" 626d4adc-4475-411c-9ed5-7dd5badfd0e0
+2015-06-10T15:54:04.608416000 0.003668s notice: Running rethinkdb 2.0.2 (CLANG 6.1.0 (clang-602.0.53))...
+2015-06-10T15:54:04.611107000 0.006357s notice: Running on Darwin 14.3.0 x86_64
+2015-06-10T15:54:04.611135000 0.006384s notice: Loading data from directory /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data
+2015-06-10T15:54:04.647894000 0.043144s info: Automatically using cache size of 4312 MB
+2015-06-10T15:54:04.648592000 0.043841s error: TCP socket creation failed for port 29015: Address already in use.
+2015-06-10T15:54:15.498050000 0.003747s notice: Running rethinkdb 2.0.2 (CLANG 6.1.0 (clang-602.0.53))...
+2015-06-10T15:54:15.500724000 0.006418s notice: Running on Darwin 14.3.0 x86_64
+2015-06-10T15:54:15.500754000 0.006448s notice: Loading data from directory /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data
+2015-06-10T15:54:15.534923000 0.040616s info: Automatically using cache size of 4450 MB
+2015-06-10T15:54:15.536273000 0.041967s notice: Listening for intracluster connections on port 29015
+2015-06-10T15:54:15.537608000 0.043302s notice: Listening for client driver connections on port 28015
+2015-06-10T15:54:15.537712000 0.043405s notice: Listening for administrative HTTP connections on port 8080
+2015-06-10T15:54:15.539044000 0.044738s notice: Listening on addresses: 127.0.0.1, 10.1.61.16, 10.1.55.59, ::1, fe80::1%1, fe80::2a37:37ff:fe02:ccda%7, fe80::3636:3bff:fec7:7eb0%4, fe80::900b:b5ff:fe5d:827c%10
+2015-06-10T15:54:15.539072000 0.044766s notice: Server ready, "jk780_na_corp_clorox_com_x92" 626d4adc-4475-411c-9ed5-7dd5badfd0e0
+2015-06-10T15:54:30.119021000 14.625878s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/f58ee43d-7772-4643-bb4d-ba830fc9947d
+2015-06-10T15:54:30.141700000 14.648557s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/bdf39477-392f-49f7-9f6e-4d9a7be72044
+2015-06-10T15:54:42.863564000 27.371418s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/719e9895-7cd3-45ba-be6a-931cbf21efcc
+2015-06-10T15:54:49.515538000 34.023975s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/35d1cc6b-b18b-4d3e-861b-75fb22b2b229
+2015-06-10T15:54:49.538861000 34.047298s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/f321120d-7d69-41b1-a077-01fa63202d52
+2015-06-10T15:54:54.444434000 38.953203s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/50d9476c-93f9-4038-831d-c648b24ed907
+2015-06-10T15:54:54.478257000 38.987026s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/0d2fcbbd-fdd9-4368-aa92-0453b3745d69
+2015-06-10T15:55:00.930694000 45.439961s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/c1fd3758-418e-410c-a762-f6d7ee60caf1
+2015-06-10T15:55:00.974339000 45.483607s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/97f6ebf9-e75d-43ef-a31b-c6ef7edd349d
+2015-06-10T15:55:00.974519000 45.483786s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/6f8f01e4-0c67-4702-a8f1-85f042cc1c62
+2015-06-10T15:55:04.534595000 49.044195s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/a0a1a397-4db5-44ce-bb19-65188b525636
+2015-06-10T15:55:04.534854000 49.044454s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/e468e36d-15f7-43fd-8661-aa977f0257f2
+2015-06-10T15:55:04.535001000 49.044601s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/dcbe7b64-50ff-49f0-9d86-bed4e69085c2
+2015-06-10T15:55:07.382589000 51.892356s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/5df8cc60-f970-4978-b05a-cc9d9b3d9044
+2015-06-10T15:55:07.392683000 51.902450s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/fb54026f-4e4d-41e1-87fd-08fd73ade6df
+2015-06-10T15:55:08.900800000 53.410733s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/43c7bab6-8316-4916-a60e-0b10af7fd9f2
+2015-06-10T15:55:08.900808000 53.410741s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/f8eafc92-e01d-40de-91ed-1c9d76f70b8f
+2015-06-10T15:55:10.413228000 54.923244s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/ddb1208a-8362-4b05-9b46-e8d83e189147
+2015-06-10T15:55:10.413861000 54.923876s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/4d7349b9-b6de-454e-ac6c-d26103e36c50
+2015-06-10T15:55:10.413879000 54.923895s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/9efb3bec-9c2f-425e-a13f-5bc232d31e3a
+2015-06-10T15:55:10.415037000 54.925052s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/6298bb36-217b-49cb-a329-fa358945a9c9
+2015-06-10T15:55:10.415045000 54.925060s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/57032556-9eb5-4da9-95e0-b6a53192de69
+2015-06-10T15:55:10.417026000 54.927042s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/5d6080e3-165c-4327-a821-dc330acd3a2d
+2015-06-10T15:55:10.421535000 54.931550s notice: Removing file /Applications/MAMP/htdocs/finals/material-v1.3/material/rethinkdb_data/528f1966-d592-4666-9496-fd2651f8c05a
